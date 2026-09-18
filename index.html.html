@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybinfinitypro - Secrétariat Avancé, Digital & Maintenance</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        },
+                        cyanGlow: '#06b6d4',
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-40 glass-panel border-b border-slate-200/50 dark:border-slate-800/50 transition-all duration-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-500 to-cyanGlow flex items-center justify-center text-white font-extrabold text-xl shadow-lg shadow-brand-500/25 group-hover:scale-105 transition-transform duration-300">
+                    <i class="fa-solid fa-infinity"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-brand-600 via-indigo-600 to-cyan-500 bg-clip-text text-transparent dark:from-brand-500 dark:via-indigo-400 dark:to-cyan-400">
+                        Cybinfinitypro
+                    </span>
+                    <span class="text-[10px] font-semibold uppercase tracking-widest text-slate-500 dark:text-slate-400">Services Digital & High-Tech</span>
+                </div>
+            </a>
+
+            <!-- Search Quick Bar (Desktop) -->
+            <div class="hidden md:flex flex-1 max-w-md mx-4 relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                <input type="text" id="globalNavSearch" oninput="handleGlobalSearch(this.value)" placeholder="Rechercher un service (ex: CV, Mémoire, Scan, SSD, Formateur...)..." 
+                       class="w-full pl-10 pr-4 py-2 text-sm rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all">
+            </div>
+
+            <!-- Header Actions -->
+            <div class="flex items-center gap-3">
+                <button onclick="toggleDarkMode()" aria-label="Toggle Theme" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-cyan-400 transition-colors">
+                    <i class="fa-solid fa-moon dark:hidden"></i>
+                    <i class="fa-solid fa-sun hidden dark:block"></i>
+                </button>
+                <button onclick="openDevisModal()" class="hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 text-white font-semibold text-sm shadow-md shadow-brand-500/20 hover:shadow-lg transition-all active:scale-95">
+                    <i class="fa-solid fa-calculator"></i>
+                    <span>Devis Express</span>
+                </button>
+                <a href="#contact" class="px-4 py-2.5 rounded-xl bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-200 font-semibold text-sm transition-all shadow-sm">
+                    Contact
+                </a>
+            </div>
+        </div>
+
+        <!-- Mobile Search Bar -->
+        <div class="px-4 pb-3 md:hidden">
+            <div class="relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                <input type="text" id="mobileNavSearch" oninput="handleGlobalSearch(this.value)" placeholder="Rechercher un service (CV, Scan, Réparation...)" 
+                       class="w-full pl-9 pr-4 py-2 text-xs rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden">
+        <!-- Background Tech Glow Effects -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-brand-500/20 to-cyanGlow/20 blur-[120px] rounded-full -z-10 pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-50 dark:bg-brand-900/40 border border-brand-200 dark:border-brand-700/50 text-brand-700 dark:text-brand-300 text-xs font-semibold tracking-wide mb-6 animate-pulse">
+                <span class="w-2 h-2 rounded-full bg-brand-500"></span>
+                Partenaire Rédactionnel, Digital & Technique Multi-services
+            </div>
+
+            <!-- Headline -->
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white max-w-4xl mx-auto leading-tight sm:leading-none">
+                L'Excellence du Secrétariat, de l'E-Administration et de la <span class="bg-gradient-to-r from-brand-600 via-indigo-500 to-cyan-500 bg-clip-text text-transparent">Maintenance Tech</span>
+            </h1>
+
+            <p class="mt-6 text-base sm:text-lg text-slate-6xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
+                <strong class="font-bold text-brand-600 dark:text-brand-400">Cybinfinitypro</strong> vous accompagne dans la rédaction académique & professionnelle, vos démarches administratives en ligne, l'impression & reprographie ainsi que la réparation d'ordinateurs et smartphones.
+            </p>
+
+            <!-- Hero Action Buttons -->
+            <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+                <button onclick="openDevisModal()" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 text-white font-bold shadow-xl shadow-brand-500/25 hover:shadow-brand-500/40 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-calculator"></i>
+                    <span>Calculer un Devis Express</span>
+                </button>
+                <a href="https://wa.me/?text=Bonjour%20Cybinfinitypro,%20j'aimerais%20avoir%20des%20informations%20sur%20vos%20services." target="_blank" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold shadow-lg shadow-emerald-600/20 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Contact WhatsApp Direct</span>
+                </a>
+                <a href="#services" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-slate-200/80 dark:bg-slate-800/80 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 font-bold transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>Explorer les Services</span>
+                </a>
+            </div>
+
+            <!-- Highlights Key Stats / Badges -->
+            <div class="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                <div class="p-4 rounded-2xl glass-panel text-center">
+                    <div class="text-2xl sm:text-3xl font-extrabold text-brand-600 dark:text-cyanGlow">100%</div>
+                    <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Normes Académiques</div>
+                </div>
+                <div class="p-4 rounded-2xl glass-panel text-center">
+                    <div class="text-2xl sm:text-3xl font-extrabold text-brand-600 dark:text-cyanGlow">Express</div>
+                    <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Impression & Scans HD</div>
+                </div>
+                <div class="p-4 rounded-2xl glass-panel text-center">
+                    <div class="text-2xl sm:text-3xl font-extrabold text-brand-600 dark:text-cyanGlow">Fiable</div>
+                    <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">E-Procédures & Visa</div>
+                </div>
+                <div class="p-4 rounded-2xl glass-panel text-center">
+                    <div class="text-2xl sm:text-3xl font-extrabold text-brand-600 dark:text-cyanGlow">Garantie</div>
+                    <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Maintenance PC & Tel</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES CATALOG SECTION -->
+    <section id="services" class="py-12 bg-slate-100/60 dark:bg-slate-900/40 border-y border-slate-200/60 dark:border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Category Filter Tabs -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                        Nos Pôles de Services
+                    </h2>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Sélectionnez une catégorie ou utilisez la recherche rapide</p>
+                </div>
+                
+                <div class="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 custom-scrollbar">
+                    <button onclick="filterCategory('all')" id="tab-all" class="category-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all bg-brand-600 text-white shadow-md">
+                        Tous les Services
+                    </button>
+                    <button onclick="filterCategory('secretariat')" id="tab-secretariat" class="category-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">
+                        Secrétariat & Rédaction
+                    </button>
+                    <button onclick="filterCategory('eadmin')" id="tab-eadmin" class="category-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">
+                        E-Administration
+                    </button>
+                    <button onclick="filterCategory('impression')" id="tab-impression" class="category-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">
+                        Impression & Graphisme
+                    </button>
+                    <button onclick="filterCategory('maintenance')" id="tab-maintenance" class="category-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">
+                        Maintenance Tech
+                    </button>
+                    <button onclick="filterCategory('accessoires')" id="tab-accessoires" class="category-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">
+                        Vente & Accessoires
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search Indicator Display -->
+            <div id="searchResultsCount" class="hidden mb-6 text-sm font-semibold text-brand-600 dark:text-cyan-400"></div>
+
+            <!-- Services Dynamic Grid -->
+            <div id="servicesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamic Service Cards Rendered via JS -->
+            </div>
+            
+            <div id="noResultsMsg" class="hidden text-center py-12">
+                <i class="fa-solid fa-folder-open text-4xl text-slate-400 mb-3"></i>
+                <p class="text-slate-600 dark:text-slate-300 font-medium">Aucun service ne correspond à votre recherche.</p>
+                <button onclick="resetSearch()" class="mt-3 px-4 py-2 text-xs bg-brand-600 text-white rounded-lg hover:bg-brand-700 font-bold">Réinitialiser la recherche</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- DEVIS EXPRESS PROMO BANNER -->
+    <section class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="relative rounded-3xl bg-gradient-to-r from-brand-900 via-indigo-900 to-slate-900 p-8 md:p-12 text-white overflow-hidden shadow-2xl">
+            <!-- Glow background -->
+            <div class="absolute -right-12 -bottom-12 w-80 h-80 bg-cyan-500/20 blur-3xl rounded-full"></div>
+            
+            <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+                <div class="max-w-2xl text-center lg:text-left">
+                    <span class="inline-block px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-xs font-bold uppercase tracking-wider mb-3">
+                        Simulateur Interactif
+                    </span>
+                    <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Besoin d'un tarif immédiat ou d'une demande personnalisée ?</h3>
+                    <p class="mt-2 text-slate-300 text-sm sm:text-base">
+                        Utilisez notre calculateur de devis express. Sélectionnez vos prestations, ajustez les quantités et envoyez directement votre demande sur WhatsApp.
+                    </p>
+                </div>
+                <button onclick="openDevisModal()" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-brand-500 hover:from-cyan-400 hover:to-brand-400 text-white font-extrabold text-base shadow-xl hover:scale-105 transition-all flex items-center gap-3 whitespace-nowrap">
+                    <i class="fa-solid fa-calculator text-lg"></i>
+                    <span>Ouvrir le Devis Express</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-16 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Contactez Cybinfinitypro</h2>
+                <p class="mt-2 text-slate-500 dark:text-slate-400 text-sm">Nous sommes à votre disposition pour toute demande de renseignement ou dépôt de dossier.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Info Cards -->
+                <div class="space-y-4">
+                    <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white">Adresse & Localisation</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Disponible en boutique & à distance</p>
+                            <p class="text-sm font-semibold text-slate-700 dark:text-slate-300 mt-2">Cybinfinitypro Services Center</p>
+                        </div>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white">WhatsApp & Assistance</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Réponse rapide garantie</p>
+                            <a href="https://wa.me/" target="_blank" class="inline-block text-sm font-bold text-emerald-600 dark:text-emerald-400 mt-2 hover:underline">
+                                Envoyer un message WhatsApp &rarr;
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white">Horaires d'Ouverture</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Du Samedi au Jeudi</p>
+                            <p class="text-sm font-semibold text-slate-700 dark:text-slate-300 mt-1">08:00 - 19:00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="lg:col-span-2 p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800">
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6">Envoyer un Message Direct</h3>
+                    <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Nom Complet</label>
+                                <input type="text" required placeholder="Votre nom" class="w-full px-4 py-2.5 rounded-xl text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Numéro de Téléphone / WhatsApp</label>
+                                <input type="tel" required placeholder="Ex: 06 00 00 00 00" class="w-full px-4 py-2.5 rounded-xl text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Service Concerné</label>
+                            <select class="w-full px-4 py-2.5 rounded-xl text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                                <option>Secrétariat / Rédaction / Mémoire</option>
+                                <option>E-Administration / Rendez-vous / Inscription</option>
+                                <option>Impression / Scan / Cartes / Conception</option>
+                                <option>Maintenance PC ou Smartphone</option>
+                                <option>Achat d'accessoires ou fournitures</option>
+                                <option>Autre demande</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Détails du Projet ou de la Demande</label>
+                            <textarea rows="4" required placeholder="Décrivez votre besoin (nombre de pages, type d'appareil, délai désiré...)" class="w-full px-4 py-2.5 rounded-xl text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-500"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 text-white font-bold text-sm shadow-md transition-all">
+                            Envoyer le Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="mt-auto bg-slate-900 text-slate-400 py-10 border-t border-slate-800 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold">
+                    <i class="fa-solid fa-infinity"></i>
+                </div>
+                <span class="font-extrabold text-white text-base">Cybinfinitypro</span>
+            </div>
+            <p>&copy; 2026 Cybinfinitypro - Secrétariat Avancé, Digital & Maintenance Technique. Tous droits réservés.</p>
+            <div class="flex items-center gap-4 text-sm">
+                <a href="#services" class="hover:text-white transition-colors">Services</a>
+                <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+                <a onclick="openDevisModal()" class="cursor-pointer hover:text-white transition-colors">Devis</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- DEVIS EXPRESS MODAL -->
+    <div id="devisModal" class="fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-2xl w-full border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden my-8">
+            <!-- Modal Header -->
+            <div class="p-6 bg-gradient-to-r from-brand-600 to-indigo-600 text-white flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-calculator text-2xl"></i>
+                    <div>
+                        <h3 class="text-xl font-bold">Devis Express - Cybinfinitypro</h3>
+                        <p class="text-xs text-slate-200">Sélectionnez vos options pour estimer votre projet</p>
+                    </div>
+                </div>
+                <button onclick="closeDevisModal()" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content Form -->
+            <div class="p-6 space-y-6 max-h-[70vh] overflow-y-auto custom-scrollbar">
+                
+                <!-- Category Select -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">1. Choisissez la catégorie</label>
+                    <select id="devisCategorySelect" onchange="updateDevisOptions()" class="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-semibold text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                        <option value="secretariat">Secrétariat Avancé & Rédaction</option>
+                        <option value="eadmin">Services E-Administration</option>
+                        <option value="impression">Impression & Reprographie</option>
+                        <option value="maintenance">Maintenance PC / Smartphone</option>
+                    </select>
+                </div>
+
+                <!-- Dynamic Prestation List -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">2. Type de prestation</label>
+                    <div id="devisOptionsContainer" class="space-y-2">
+                        <!-- Rendered dynamically -->
+                    </div>
+                </div>
+
+                <!-- Quantity / Complexity Slider -->
+                <div>
+                    <div class="flex justify-between items-center mb-1">
+                        <label class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">3. Quantité / Volume (Pages, Fichiers, Unités)</label>
+                        <span id="devisQtyValue" class="text-sm font-extrabold text-brand-600 dark:text-cyan-400">1</span>
+                    </div>
+                    <input type="range" id="devisQtySlider" min="1" max="100" value="1" oninput="calculateDevisTotal()" class="w-full accent-brand-600 cursor-pointer">
+                </div>
+
+                <!-- Client Notes -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">4. Précisions ou remarques (Optionnel)</label>
+                    <input type="text" id="devisNotes" placeholder="Ex: Urgent 24h, reliure spirale métal, modèle spécifique..." class="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                </div>
+
+                <!-- Total Estimation Display -->
+                <div class="p-4 rounded-2xl bg-brand-50 dark:bg-brand-950/50 border border-brand-200 dark:border-brand-800/60 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-bold text-brand-600 dark:text-brand-300 uppercase block">Estimation Indicative</span>
+                        <span class="text-xs text-slate-500 dark:text-slate-400">Le tarif final dépend du niveau de finition</span>
+                    </div>
+                    <div id="devisTotalDisplay" class="text-2xl font-extrabold text-brand-700 dark:text-cyan-400">
+                        -- DA
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-6 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <button onclick="closeDevisModal()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold text-sm">
+                    Fermer
+                </button>
+                <button onclick="sendDevisWhatsApp()" class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Envoyer la demande WhatsApp</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SERVICES_DATA = [
+            // CATEGORY 1: Secrétariat Avancé
+            {
+                id: 'sec-1',
+                category: 'secretariat',
+                title: 'Saisie & Rédaction Complète',
+                icon: 'fa-file-lines',
+                image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80',
+                badge: 'Académique & Pro',
+                items: [
+                    'Mémoires de fin d\'études & thèses',
+                    'Rapports de stage & comptes-rendus',
+                    'Procès-verbaux (PV) & cahiers des charges',
+                    'Lettres de motivation & courriers administratifs'
+                ],
+                tagSearch: 'memoire these rapport pv cahier des charges lettre courrier redaction saisie'
+            },
+            {
+                id: 'sec-2',
+                category: 'secretariat',
+                title: 'Mise en Page & Normes Académiques',
+                icon: 'fa-align-left',
+                image: 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=800&q=80',
+                badge: 'Formatage Pro',
+                items: [
+                    'Sommaire & table des matières automatique',
+                    'Pagination personnalisée & en-têtes',
+                    'Tables des figures & des tableaux',
+                    'Bibliographie structurée & index'
+                ],
+                tagSearch: 'mise en page sommaire pagination bibliographie normes relecture formatage'
+            },
+            {
+                id: 'sec-3',
+                category: 'secretariat',
+                title: 'Conception de CV & Portfolios',
+                icon: 'fa-id-card',
+                image: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=800&q=80',
+                badge: 'Recrutement',
+                items: [
+                    'CV professionnels (Canadien, Europass, Modern Design)',
+                    'Lettres de motivation personnalisées',
+                    'Portfolios visuels de présentation de travaux',
+                    'Optimisation pour candidatures'
+                ],
+                tagSearch: 'cv canadien europass design portfolio lettre de motivation emploi travail'
+            },
+            {
+                id: 'sec-4',
+                category: 'secretariat',
+                title: 'Présentations PowerPoint & Prezi',
+                icon: 'fa-display',
+                image: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800&q=80',
+                badge: 'Soutenances',
+                items: [
+                    'Diaporamas dynamiques pour soutenances & exposés',
+                    'Présentations d\'entreprises & pitchs',
+                    'Animations & visuels haute qualité',
+                    'Modèles sur-mesure'
+                ],
+                tagSearch: 'powerpoint prezi soutenance expose presentation diaporama projet'
+            },
+            {
+                id: 'sec-5',
+                category: 'secretariat',
+                title: 'Saisie de Données & Tableaux Excel',
+                icon: 'fa-table',
+                image: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=80',
+                badge: 'Bureautique',
+                items: [
+                    'Saisie sur Excel & création de bases de données',
+                    'Formules complexes & calculs automatisés',
+                    'Graphiques statistiques & tableaux de bord',
+                    'Gestion de stocks simples'
+                ],
+                tagSearch: 'excel tableau formule graphique base de donnees stock saisie data'
+            },
+            {
+                id: 'sec-6',
+                category: 'secretariat',
+                title: 'Transcription, Traduction & Relecture',
+                icon: 'fa-language',
+                image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80',
+                badge: 'Multilingue',
+                items: [
+                    'Transcription d\'audios & manuscrits en Word',
+                    'Traduction (Arabe, Français, Anglais)',
+                    'Correction orthographique & grammaticale',
+                    'Réécriture de style & reformulation'
+                ],
+                tagSearch: 'transcription traduction correction arabe francais anglais relecture audio'
+            },
+
+            // CATEGORY 2: Services en Ligne & E-Administration
+            {
+                id: 'eadmin-1',
+                category: 'eadmin',
+                title: 'Inscriptions & Concours Officiels',
+                icon: 'fa-laptop-code',
+                image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=800&q=80',
+                badge: 'E-Procédures',
+                items: [
+                    'Inscriptions universitaires & plateforme Progress',
+                    'Concours de la fonction publique',
+                    'Examens nationaux & diplômes',
+                    'Suivi rigoureux des candidatures'
+                ],
+                tagSearch: 'inscription concours fonction publique universitaire examen etudiant progress'
+            },
+            {
+                id: 'eadmin-2',
+                category: 'eadmin',
+                title: 'Prise de Rendez-vous Administratifs',
+                icon: 'fa-calendar-check',
+                image: 'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=800&q=80',
+                badge: 'Créneaux Rapides',
+                items: [
+                    'Créneaux administratifs publics & privés',
+                    'Demandes de visa (TLScontact, VFS, BLS...)',
+                    'Rendez-vous organismes officiels',
+                    'Confirmation & impression des formulaires'
+                ],
+                tagSearch: 'rendez vous visa tls vfs bls créneau rendez-vous'
+            },
+            {
+                id: 'eadmin-3',
+                category: 'eadmin',
+                title: 'E-Formulaires & Télé-Procédures',
+                icon: 'fa-pen-to-square',
+                image: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80',
+                badge: 'Numérique',
+                items: [
+                    'Remplissage rigoureux de formulaires en ligne',
+                    'Numérisation & constitution de dossiers PDF',
+                    'Envoi sécurisé sur plateformes ministérielles',
+                    'Suivi des dossiers administratifs'
+                ],
+                tagSearch: 'formulaire e-administration teleprocedure dossier scanner envoi'
+            },
+            {
+                id: 'eadmin-4',
+                category: 'eadmin',
+                title: 'Gestion de Comptes & E-mails',
+                icon: 'fa-envelope-circle-check',
+                image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80',
+                badge: 'Sécurité',
+                items: [
+                    'Création & sécurisation de boîtes e-mail',
+                    'Récupération de comptes ou mots de passe oubliés',
+                    'Inscription sur plateformes officielles',
+                    'Protection des accès'
+                ],
+                tagSearch: 'email compte mot de passe oublie recuperation securite gmail'
+            },
+            {
+                id: 'eadmin-5',
+                category: 'eadmin',
+                title: 'Paiement & Achats en Ligne',
+                icon: 'fa-credit-card',
+                image: 'https://images.unsplash.com/photo-1556742049-0a670f4a4591?auto=format&fit=crop&w=800&q=80',
+                badge: 'Assistance',
+                items: [
+                    'Paiement de factures électroniques',
+                    'Achat de services en ligne & abonnements',
+                    'Réservation de billets de transport / voyage',
+                    'Accompagnement sécurisé'
+                ],
+                tagSearch: 'paiement achat carte billet facture virement internet'
+            },
+            {
+                id: 'eadmin-6',
+                category: 'eadmin',
+                title: 'Recherche Documentaire & Juridique',
+                icon: 'fa-magnifying-glass-doc',
+                image: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=800&q=80',
+                badge: 'Recherche',
+                items: [
+                    'Articles scientifiques & revues',
+                    'Textes de loi & journaux officiels',
+                    'Formulaires officiels & spécimens',
+                    'Téléchargement de documents rares'
+                ],
+                tagSearch: 'recherche document article scientifique loi journal officiel pdf'
+            },
+
+            // CATEGORY 3: Impression, Reprographie & Travaux d'Édition
+            {
+                id: 'imp-1',
+                category: 'impression',
+                title: 'Impression & Photocopie Haute Vitesse',
+                icon: 'fa-print',
+                image: 'https://images.unsplash.com/photo-1562654501-a0ccc0fc3fb1?auto=format&fit=crop&w=800&q=80',
+                badge: 'A4 & A3',
+                items: [
+                    'Impression Noir & Blanc et Couleur',
+                    'Formats A4, A3 sur papiers haute qualité',
+                    'Tirage de grande quantité à grande vitesse',
+                    'Duplication de documents'
+                ],
+                tagSearch: 'impression photocopie tirage couleur noir blanc a4 a3 papier'
+            },
+            {
+                id: 'imp-2',
+                category: 'impression',
+                title: 'Numérisation HD & OCR',
+                icon: 'fa-scanner',
+                image: 'https://images.unsplash.com/photo-1583508915901-b5f84c1dcde1?auto=format&fit=crop&w=800&q=80',
+                badge: 'Scan HD',
+                items: [
+                    'Scan haute définition en masse',
+                    'Conversion OCR (Image vers texte éditable Word/PDF)',
+                    'Archivage numérique structuré',
+                    'Nettoyage d\'images scannées'
+                ],
+                tagSearch: 'scan numerisation ocr pdf word image scanner HD'
+            },
+            {
+                id: 'imp-3',
+                category: 'impression',
+                title: 'Finition, Reliure & Plastification',
+                icon: 'fa-book-open',
+                image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80',
+                badge: 'Finition Pro',
+                items: [
+                    'Reliure à spirales (plastique / métal)',
+                    'Reliure thermique pour mémoires',
+                    'Plastification de documents (A4, A3, badges)',
+                    'Découpe & façonnage'
+                ],
+                tagSearch: 'reliure spirale plastique metal thermique plastification plastifier couverture'
+            },
+            {
+                id: 'imp-4',
+                category: 'impression',
+                title: 'Conception Graphique pour Impression',
+                icon: 'fa-palette',
+                image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=800&q=80',
+                badge: 'Design Pro',
+                items: [
+                    'Cartes de visite & cartes d\'invitation',
+                    'Dépliants (flyers), brochures & affiches',
+                    'Étiquettes d\'emballage & badges d\'identification',
+                    'Maquettes de devantures / vitrines de magasins'
+                ],
+                tagSearch: 'carte de visite flyer affiche dépliant badge devanture vitrine graphique design'
+            },
+
+            // CATEGORY 4: Maintenance Technique PC, Smartphone & Réseaux
+            {
+                id: 'maint-1',
+                category: 'maintenance',
+                title: 'Diagnostic & Réparation PC',
+                icon: 'fa-laptop-medical',
+                image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80',
+                badge: 'Matériel & Software',
+                items: [
+                    'Diagnostic pannes matériel/logiciel',
+                    'Changement d\'écran, clavier, batterie, connecteur',
+                    'Passage au disque SSD ultra-rapide',
+                    'Dépoussiérage & changement pâte thermique'
+                ],
+                tagSearch: 'reparation pc ordinateur portable ecran clavier batterie ssd disque dur pate thermique'
+            },
+            {
+                id: 'maint-2',
+                category: 'maintenance',
+                title: 'Diagnostic & Réparation Smartphone',
+                icon: 'fa-mobile-screen-button',
+                image: 'https://images.unsplash.com/photo-1597740985671-2a8a3b80502e?auto=format&fit=crop&w=800&q=80',
+                badge: 'Mobiles',
+                items: [
+                    'Remplacement d\'écrans & batteries d\'origine',
+                    'Réparation nappe de charge & connecteurs',
+                    'Désoxydation suite à dégâts d\'eau',
+                    'Micro-soudure de base'
+                ],
+                tagSearch: 'telephone smartphone iphone samsung ecran batterie eau desoxydation chargeur'
+            },
+            {
+                id: 'maint-3',
+                category: 'maintenance',
+                title: 'Installation, Formatage & Configuration',
+                icon: 'fa-sliders',
+                image: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80',
+                badge: 'Systèmes',
+                items: [
+                    'Formatage & installation (Windows, Linux, macOS)',
+                    'Mise à jour pilotes (drivers) & périphériques',
+                    'Installation Pack Office & logiciels spécialisés',
+                    'Configuration réseau & Wi-Fi'
+                ],
+                tagSearch: 'formatage windows macos linux office driver pilote wifi configuration'
+            },
+            {
+                id: 'maint-4',
+                category: 'maintenance',
+                title: 'Sécurité, Nettoyage & Antivirus',
+                icon: 'fa-shield-halved',
+                image: 'https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?auto=format&fit=crop&w=800&q=80',
+                badge: 'Protection',
+                items: [
+                    'Suppression de virus, malwares & spyloggers',
+                    'Nettoyage approfondi du système lent',
+                    'Installation d\'antivirus & pare-feu performant',
+                    'Optimisation du démarrage'
+                ],
+                tagSearch: 'virus antivirus nettoyage spylogger securite lenti optimisation'
+            },
+            {
+                id: 'maint-5',
+                category: 'maintenance',
+                title: 'Sauvegarde & Récupération de Données',
+                icon: 'fa-database',
+                image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80',
+                badge: 'Données',
+                items: [
+                    'Récupération de données effacées accidentellement',
+                    'Extraction depuis disques dur défectueux',
+                    'Sauvegarde automatisée sur Clé USB / Cloud',
+                    'Transfert sécurisé de données'
+                ],
+                tagSearch: 'recuperation donnees fichier efface disque dur cle usb sauvegarde cloud'
+            },
+            {
+                id: 'maint-6',
+                category: 'maintenance',
+                title: 'Déblocage & Flashage',
+                icon: 'fa-lock-open',
+                image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80',
+                badge: 'Firmware',
+                items: [
+                    'Déblocage réseau & compte de smartphones',
+                    'Réinitialisation de mots de passe oubliés (PC/Tel)',
+                    'Flashage & mise à jour de firmwares',
+                    'Débloquage sécurisé'
+                ],
+                tagSearch: 'deblocage flashage mot de passe compte google bypass firmware'
+            },
+
+            // CATEGORY 5: Vente, Accessoires & Consommables
+            {
+                id: 'acc-1',
+                category: 'accessoires',
+                title: 'Accessoires Téléphone & PC',
+                icon: 'fa-headphones',
+                image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80',
+                badge: 'High-Tech',
+                items: [
+                    'Coques, verres trempés & protections',
+                    'Câbles, chargeurs rapides, écouteurs, casques',
+                    'Souris, claviers, supports pour PC/Tel',
+                    'Clés USB & cartes mémoire High-Speed'
+                ],
+                tagSearch: 'accessoire coque verre trempe cable chargeur ecouteur souris clavier cle usb carte memoire'
+            },
+            {
+                id: 'acc-2',
+                category: 'accessoires',
+                title: 'Consommables de Bureau',
+                icon: 'fa-box-archive',
+                image: 'https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=800&q=80',
+                badge: 'Fournitures',
+                items: [
+                    'Rames de papier (A4, A3) qualité supérieure',
+                    'Cartouches d\'encre & toners toutes marques',
+                    'Pochettes, reliures & chemises',
+                    'Fournitures de bureau essentielles'
+                ],
+                tagSearch: 'papier rame cartouche encre toner pochette chemise fournitures'
+            },
+            {
+                id: 'acc-3',
+                category: 'accessoires',
+                title: 'Recharges & Cartes de Services',
+                icon: 'fa-sim-card',
+                image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=800&q=80',
+                badge: 'Recharges',
+                items: [
+                    'Recharges téléphoniques (Mobilis, Djezzy, Ooredoo...)',
+                    'Cartes cadeaux & abonnements',
+                    'Cartes de services en ligne',
+                    'Service disponible instantanément'
+                ],
+                tagSearch: 'recharge flexy djezzy ooredoo mobilis carte cadeau abonnement'
+            }
+        ];
+
+        function renderServices() {
+            const grid = document.getElementById('servicesGrid');
+            const noResults = document.getElementById('noResultsMsg');
+            const resultsIndicator = document.getElementById('searchResultsCount');
+
+            let filtered = SERVICES_DATA.filter(service => {
+                const matchesCategory = (currentFilter === 'all') || (service.category === currentFilter);
+                
+                let matchesSearch = true;
+                if (searchQuery) {
+                    const searchContent = (service.title + ' ' + service.badge + ' ' + service.items.join(' ') + ' ' + service.tagSearch).toLowerCase();
+                    matchesSearch = searchContent.includes(searchQuery);
+                }
+
+                return matchesCategory && matchesSearch;
+            });
+
+            grid.innerHTML = '';
+
+            if (searchQuery) {
+                resultsIndicator.classList.remove('hidden');
+                resultsIndicator.textContent = `${filtered.length} service(s) trouvé(s) pour "${searchQuery}"`;
+            } else {
+                resultsIndicator.classList.add('hidden');
+            }
+
+            if (filtered.length === 0) {
+                grid.classList.add('hidden');
+                noResults.classList.remove('hidden');
+                return;
+            }
+
+            grid.classList.remove('hidden');
+            noResults.classList.add('hidden');
+
+            filtered.forEach(service => {
+                const card = document.createElement('div');
+                card.className = 'group rounded-3xl glass-panel border border-slate-200/80 dark:border-slate-800/80 hover:border-brand-500/50 dark:hover:border-brand-500/50 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 flex flex-col justify-between overflow-hidden';
+                
+                card.innerHTML = `
+                    <div>
+                        <!-- Service Card Image Header -->
+                        <div class="relative h-44 w-full overflow-hidden bg-slate-200 dark:bg-slate-800">
+                            <img src="${service.image}" alt="${service.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" onerror="this.src='https://placehold.co/800x450/4f46e5/ffffff?text=Cybinfinitypro'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+                            
+                            <!-- Icon Badge Over Image -->
+                            <div class="absolute top-3 left-3 w-10 h-10 rounded-xl bg-slate-900/80 backdrop-blur-md text-white flex items-center justify-center text-base border border-white/20">
+                                <i class="fa-solid ${service.icon}"></i>
+                            </div>
+
+                            <span class="absolute top-3 right-3 px-3 py-1 rounded-full bg-slate-900/80 backdrop-blur-md border border-white/20 text-cyan-300 text-[11px] font-bold uppercase tracking-wider">
+                                ${service.badge}
+                            </span>
+                        </div>
+
+                        <!-- Content Body -->
+                        <div class="p-6">
+                            <h3 class="text-lg font-extrabold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-cyan-400 transition-colors">
+                                ${service.title}
+                            </h3>
+                            <ul class="mt-4 space-y-2 text-xs text-slate-600 dark:text-slate-300">
+                                ${service.items.map(item => `
+                                    <li class="flex items-start gap-2">
+                                        <i class="fa-solid fa-check text-brand-500 dark:text-cyan-400 mt-0.5 shrink-0"></i>
+                                        <span>${item}</span>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Footer Action -->
+                    <div class="px-6 pb-6 pt-2 flex items-center justify-between border-t border-slate-100 dark:border-slate-800/60 mt-2">
+                        <button onclick="quickOrderWhatsApp('${service.title}')" class="text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1.5">
+                            <i class="fa-brands fa-whatsapp text-sm"></i>
+                            <span>Demander ce service</span>
+                        </button>
+                        <button onclick="openDevisModalForService('${service.category}')" class="text-xs font-semibold text-brand-600 dark:text-brand-400 hover:underline">
+                            Devis &rarr;
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+        }
+
+        const DEVIS_PRICING = {
+            secretariat: [
+                { id: 'memoire', label: 'Rédaction / Saisie Mémoire ou Thèse', basePrice: 150 },
+                { id: 'cv', label: 'Conception CV / Lettre de motivation', basePrice: 800 },
+                { id: 'powerpoint', label: 'Présentation PowerPoint / Prezi', basePrice: 200 },
+                { id: 'excel', label: 'Saisie / Tableau Excel automatisé', basePrice: 500 },
+                { id: 'traduction', label: 'Traduction / Relecture de document', basePrice: 200 }
+            ],
+            eadmin: [
+                { id: 'inscription', label: 'Inscription en ligne / Concours', basePrice: 500 },
+                { id: 'rdv', label: 'Prise de Rendez-vous Visa / Admin', basePrice: 1000 },
+                { id: 'formulaire', label: 'Remplissage E-Formulaire / Scan', basePrice: 300 },
+                { id: 'compte', label: 'Création / Récupération de Compte', basePrice: 400 }
+            ],
+            impression: [
+                { id: 'imp_bw', label: 'Impression / Photocopie N&B (Page)', basePrice: 10 },
+                { id: 'imp_color', label: 'Impression Couleur (Page)', basePrice: 30 },
+                { id: 'scan_ocr', label: 'Numérisation HD / Scan OCR', basePrice: 20 },
+                { id: 'reliure', label: 'Reliure Spirale ou Thermique', basePrice: 250 },
+                { id: 'graphisme', label: 'Conception Carte de Visite / Flyer', basePrice: 1500 }
+            ],
+            maintenance: [
+                { id: 'formatage', label: 'Formatage PC + Windows + Pack Office', basePrice: 1500 },
+                { id: 'ssd', label: 'Installation Disque SSD + Migration', basePrice: 2000 },
+                { id: 'diag_tel', label: 'Changement Écran / Batterie Téléphone', basePrice: 1000 },
+                { id: 'virus', label: 'Suppression Virus + Nettoyage PC', basePrice: 1200 },
+                { id: 'donnees', label: 'Récupération de Données Effacées', basePrice: 2500 }
+            ]
+        };
+
+        function openDevisModal() {
+            document.getElementById('devisModal').classList.remove('hidden');
+            calculateDevisTotal();
+        }
+
+        function openDevisModalForService(category) {
+            const select = document.getElementById('devisCategorySelect');
+            if (select) {
+                select.value = category;
+                updateDevisOptions();
+            }
+            openDevisModal();
+        }
+
+        function closeDevisModal() {
+            document.getElementById('devisModal').classList.add('hidden');
+        }
+
+        function updateDevisOptions() {
+            const cat = document.getElementById('devisCategorySelect').value;
+            const container = document.getElementById('devisOptionsContainer');
+            const options = DEVIS_PRICING[cat] || [];
+
+            container.innerHTML = '';
+            options.forEach((opt, index) => {
+                const label = document.createElement('label');
+                label.className = 'flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 cursor-pointer hover:border-brand-500 transition-colors';
+                label.innerHTML = `
+                    <input type="radio" name="devisOption" value="${opt.id}" data-price="${opt.basePrice}" data-label="${opt.label}" ${index === 0 ? 'checked' : ''} onchange="calculateDevisTotal()" class="accent-brand-600">
+                    <div class="flex-1 text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-100">${opt.label}</div>
+                    <div class="text-xs font-extrabold text-brand-600 dark:text-cyan-400">à partir de ${opt.basePrice} DA</div>
+                `;
+                container.appendChild(label);
+            });
+
+            calculateDevisTotal();
+        }
+
+        function calculateDevisTotal() {
+            const qtySlider = document.getElementById('devisQtySlider');
+            const qtyValue = document.getElementById('devisQtyValue');
+            const qty = parseInt(qtySlider.value) || 1;
+            qtyValue.textContent = qty;
+
+            const selectedRadio = document.querySelector('input[name="devisOption"]:checked');
+            if (!selectedRadio) return;
+
+            const basePrice = parseFloat(selectedRadio.getAttribute('data-price')) || 0;
+            const total = basePrice * qty;
+
+            document.getElementById('devisTotalDisplay').textContent = `${total.toLocaleString()} DA`;
+        }
+
+        function sendDevisWhatsApp() {
+            const catSelect = document.getElementById('devisCategorySelect');
+            const catText = catSelect.options[catSelect.selectedIndex].text;
+            
+            const selectedRadio = document.querySelector('input[name="devisOption"]:checked');
+            const optionLabel = selectedRadio ? selectedRadio.getAttribute('data-label') : 'Prestation';
+            
+            const qty = document.getElementById('devisQtySlider').value;
+            const total = document.getElementById('devisTotalDisplay').textContent;
+            const notes = document.getElementById('devisNotes').value.trim();
+
+            let msg = `Bonjour Cybinfinitypro,\n\n`;
+            msg += `Je souhaite obtenir un devis / passer commande pour :\n`;
+            msg += `- *Catégorie:* ${catText}\n`;
+            msg += `- *Prestation:* ${optionLabel}\n`;
+            msg += `- *Quantité / Volume:* ${qty}\n`;
+            msg += `- *Estimation de base:* ${total}\n`;
+            if (notes) {
+                msg += `- *Remarques / Détails:* ${notes}\n`;
+            }
+            msg += `\nMerci de me recontacter pour confirmer les modalités.`;
+
+            const encodedMsg = encodeURIComponent(msg);
+            window.open(`https://wa.me/?text=${encodedMsg}`, '_blank');
+        }
+
+        function quickOrderWhatsApp(serviceTitle) {
+            const msg = `Bonjour Cybinfinitypro,\n\nJe suis intéressé(e) par votre service: *${serviceTitle}*.\nPouvez-vous me donner plus de détails sur les tarifs et les démarches ?\n\nMerci !`;
+            window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            alert("Merci ! Votre message a été transmis à l'équipe Cybinfinitypro. Nous vous contacterons très rapidement.");
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>
